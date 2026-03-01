@@ -87,20 +87,55 @@ class DoublyLinkedList:
             temp.next = None             # set next pointer of the temp node to none 
         self.length -= 1                 # decrement the length of the node
         return temp
+    
+    def get(self,index):
+        if index < 0 or index >= self.length:
+            return None
+        cur = self.head # set current pointer to the head node
+        if index < self.length/2:
+            for _ in range(index): # shift the current node to the desired index
+                cur = cur.next 
+        else:
+            cur = self.tail
+            for _ in range(self.length -1,index, -1): # shift the current node to the desired index
+                cur = cur.prev 
+        return cur #return current node
 
+    def set_value(self,index,value):
+        # if index<0 or index>=self.length:
+        #     return None
+        # cur = self.head
+        # if index < self.length/2:
+        #     for _ in range(index):
+        #         cur = cur.next
+        # else:
+        #     cur = self.tail
+        #     for _ in range(self.length-1,index,-1):
+        #         cur = cur.prev
+        cur = self.get(index)
+        if cur:
+            cur.value = value
+            return cur
+        return False
 
         
 my_doubly_linked_list = DoublyLinkedList(1)
 my_doubly_linked_list.append(2)
+my_doubly_linked_list.append(3)
+my_doubly_linked_list.append(4)
 my_doubly_linked_list.print_list()
 print("break")
-my_doubly_linked_list.prepend(10)
-my_doubly_linked_list.print_list()
+# print(my_doubly_linked_list.get(2))
+print(my_doubly_linked_list.set_value(2,9))
 print("break")
-print(my_doubly_linked_list.pop_first())
-# print(my_doubly_linked_list.pop_first())
-# print(my_doubly_linked_list.pop_first())
 my_doubly_linked_list.print_list()
+# my_doubly_linked_list.prepend(10)
+# my_doubly_linked_list.print_list()
+# print("break")
+# print(my_doubly_linked_list.pop_first())
+# print(my_doubly_linked_list.pop_first())
+# print(my_doubly_linked_list.pop_first())
+# my_doubly_linked_list.print_list()
 # print(my_doubly_linked_list.pop())
 # print(my_doubly_linked_list.pop())
 # print(my_doubly_linked_list.pop())
