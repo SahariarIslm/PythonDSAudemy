@@ -117,17 +117,75 @@ class DoublyLinkedList:
             cur.value = value
             return cur
         return False
+    
+    def insert(self,index,value):
+        new_node = Node(value)
 
+        if index < 0 or index > self.length:
+            return None
         
+        if index == 0:
+            self.prepend(value)
+
+        if index == self.length:
+            self.append(value)
+
+        cur = self.head
+        if index < self.length/2:
+            for _ in range(index):
+                cur = cur.next
+        else:
+            cur = self.tail
+            for _ in range(self.length-1,index,-1):
+                cur = cur.prev
+
+        before = cur.prev
+        before.next=new_node
+        cur.prev=new_node
+        new_node.next=cur
+        new_node.prev=before
+        return True
+    
+    def remove(self,index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            self.pop_first()
+        if index == self.length-1:
+            self.pop()
+        
+        cur = self.head
+        if index < self.length/2:
+            for _ in range(index):
+                cur = cur.next
+        else:
+            cur = self.tail
+            for _ in range(self.length-1,index,-1):
+                cur = cur.prev
+
+        prev = cur.prev
+        next = cur.next
+        prev.next=next
+        next.prev=prev
+        cur.prev = None
+        cur.next = None
+        return cur
+
+
+
 my_doubly_linked_list = DoublyLinkedList(1)
 my_doubly_linked_list.append(2)
 my_doubly_linked_list.append(3)
 my_doubly_linked_list.append(4)
 my_doubly_linked_list.print_list()
-print("break")
+print("Break")
 # print(my_doubly_linked_list.get(2))
-print(my_doubly_linked_list.set_value(2,9))
-print("break")
+# print(my_doubly_linked_list.set_value(2,9))
+print(my_doubly_linked_list.insert(2,9))
+print("Break")
+my_doubly_linked_list.print_list()
+print("Break")
+print(my_doubly_linked_list.remove(1))
 my_doubly_linked_list.print_list()
 # my_doubly_linked_list.prepend(10)
 # my_doubly_linked_list.print_list()
